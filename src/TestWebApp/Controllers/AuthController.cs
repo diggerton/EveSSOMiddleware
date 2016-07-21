@@ -14,6 +14,7 @@ namespace TestWebApp.Controllers
         [HttpGet]
         [AllowAnonymous]
         public IActionResult Login(string returnUrl = null)
+
         {
             return View(HttpContext.Authentication.GetAuthenticationSchemes());
         }
@@ -27,6 +28,12 @@ namespace TestWebApp.Controllers
             await HttpContext.Authentication.ChallengeAsync(provider);
         }
 
+        [Authorize]
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.Authentication.SignOutAsync("EveSSO");
+            return RedirectToAction("Index", "Home");
+        }
         
     }
 }
