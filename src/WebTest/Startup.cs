@@ -111,13 +111,8 @@ namespace WebTest
                 var expiresString = tokens.FirstOrDefault(t => t.Name.Equals("expires_at", StringComparison.OrdinalIgnoreCase))?.Value;
 
                 if (string.IsNullOrWhiteSpace(expiresString) || 
-                    !DateTime.TryParse(expiresString, CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal, out expires))
-                {
-                    context.RejectPrincipal();
-                    await context.HttpContext.Authentication.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-                }
-
-                if (DateTime.UtcNow > expires.ToUniversalTime())
+                    !DateTime.TryParse(expiresString, CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal, out expires) ||
+                    DateTime.UtcNow > expires.ToUniversalTime())
                 {
                     context.RejectPrincipal();
                     await context.HttpContext.Authentication.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
