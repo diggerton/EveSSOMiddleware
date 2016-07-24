@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    <p>
+        <div>Current Authentication Details:</div>
+        <div>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <div>
+                    <div>User: <strong>@User.Identity.Name</strong> is logged in.</div>
+                </div>
+                <div>
+                    <a asp-action="EveSSOLogout" asp-controller="Auth">Logout</a>
+                </div>
+            }
+            else
+            {
+                <div>
+                    There is no user logged in.
+                </div>
+                <div>
+                    <a asp-action="EveSSOLogin" asp-controller="Auth">Login using EveSSO</a>
+                </div>
+            }
+            <div>
+                @DateTime.UtcNow UTC
+            </div>
+            <div>
+                <a asp-action="Index" asp-controller="Home">Return Home</a>
+            </div>
+        </div>
+    </p>
+    <p>
+        <div>
+            @RenderBody()
+        </div>
+    </p>
+</body>
+</html>

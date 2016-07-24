@@ -1,0 +1,17 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@{
+}
+
+<p>
+    <strong>This page is a protected resource.</strong>
+    <div>Claims: </div>
+    <ul>
+        @foreach (var claim in User.Claims)
+        {
+            <li>@claim.Type :: @claim.Value</li>
+        }
+    </ul>
+</p>
